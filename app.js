@@ -26,18 +26,23 @@ function displayCountries(nations) {
 
             nationDiv.appendChild(nameDiv);
 
-        const populationDiv = document.createElement('div');
+        const populationDiv = document.createElement('p');
         populationDiv.innerText = 'Population:' + ' ' + nation.population;
         nationDiv.appendChild(populationDiv);
 
 
-        const capitalDiv = document.createElement('div');
+        const capitalDiv = document.createElement('p');
         capitalDiv.innerText = 'Capital: ' + ' ' + nation.capital;
         nationDiv.appendChild(capitalDiv);
 
         if (nation.currencies) {
-            const currencyDiv = document.createElement('div');
-            currencyDiv.innerText = 'Currency: ' + ' ' + nation.currencies.name;
+            const currencyDiv = document.createElement('p');
+            for (const key in nation.currencies) {
+                if (Object.hasOwnProperty.call(nation.currencies, key)) {
+                    const element = nation.currencies[key];
+                    currencyDiv.innerText = 'Currency: ' + ' ' + element.name + ' ' + '(' + element.symbol + ')';
+                }
+            }
             nationDiv.appendChild(currencyDiv);     
         }
 
@@ -54,9 +59,18 @@ function displayCountries(nations) {
             }
         } 
 
-        
-
-
+        const unMemberImg = document.createElement('img');
+        function unMember() {
+            if (nation.unMember === true) {
+                return 'https://upload.wikimedia.org/wikipedia/commons/thumb/b/b3/UN_flag.png/1024px-UN_flag.png'
+            } else {
+                return 'https://i.ytimg.com/vi/H9VO34S4NMY/maxresdefault.jpg'
+            }
+        }
+        unMemberImg.src = unMember();
+        unMemberImg.style.height = '80px';
+        unMemberImg.style.width = '120px'
+        nationDiv.appendChild(unMemberImg);
 
 
         container.appendChild(nationDiv);
