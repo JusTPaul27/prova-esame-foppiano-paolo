@@ -40,6 +40,10 @@ html,body{
     text-align: center;
 }
 
+.flag:hover{
+    transform: scale(1.25);
+}
+
 .un-member{
     border-radius: 4px;
 }
