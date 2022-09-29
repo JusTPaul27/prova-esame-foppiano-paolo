@@ -41,12 +41,12 @@ function displayCountries(nations) {
         nationDiv.appendChild(capitalDiv);
 
     let language = "Language: ";
-    for (const property in nation.languages) {
+    for (const key in nation.languages) {
       const length = Object.keys(nation.languages).length;
       if (length === 1) {
-        language = language + nation.languages[property];
+        language = language + nation.languages[key];
       } else {
-        language = language + nation.languages[property] + ", ";
+        language = language + nation.languages[key] + ", ";
       }
     }
     const languages = document.createElement("span");
@@ -89,7 +89,7 @@ function displayCountries(nations) {
             if (nation.unMember === true) {
                 return 'https://upload.wikimedia.org/wikipedia/commons/thumb/b/b3/UN_flag.png/1024px-UN_flag.png'
             } else {
-                return 'https://i.ytimg.com/vi/H9VO34S4NMY/maxresdefault.jpg'
+                return './assets/immagine.png'
             }
         }
         unMemberImg.src = unMember();
