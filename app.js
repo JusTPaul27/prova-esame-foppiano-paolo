@@ -1,13 +1,18 @@
+let europeNations = []
+
 fetch('https://restcountries.com/v3.1/region/europe')
 .then(resp => resp.json())
 .then(res => displayCountries(res));
 
 function displayCountries(nations) {
+    europeNations = nations;
     
     const container = document.getElementById('container');
 
     for (const nation of nations) {
         console.log(nation);
+
+
         nationDiv = document.createElement('div');
         nationDiv.classList.add('nation-div');
 
@@ -35,6 +40,20 @@ function displayCountries(nations) {
         capitalDiv.innerText = 'Capital: ' + ' ' + nation.capital;
         nationDiv.appendChild(capitalDiv);
 
+    let language = "Language: ";
+    for (const property in nation.languages) {
+      const length = Object.keys(nation.languages).length;
+      if (length === 1) {
+        language = language + nation.languages[property];
+      } else {
+        language = language + nation.languages[property] + ", ";
+      }
+    }
+    const languages = document.createElement("span");
+    languages.innerText = language;
+    nationDiv.appendChild(languages);
+
+
         if (nation.currencies) {
             const currencyDiv = document.createElement('p');
             for (const key in nation.currencies) {
@@ -57,7 +76,13 @@ function displayCountries(nations) {
                 bordersUl.appendChild(borderLi);
                 nationDiv.appendChild(bordersUl);
             }
-        } 
+        } else{
+            const borderLi = document.createElement('li');
+                borderLi.innerText = 'Nothing';
+                bordersUl.appendChild(borderLi);
+                nationDiv.appendChild(bordersUl);
+        }
+    
 
         const unMemberImg = document.createElement('img');
         function unMember() {
@@ -69,10 +94,30 @@ function displayCountries(nations) {
         }
         unMemberImg.src = unMember();
         unMemberImg.style.height = '80px';
-        unMemberImg.style.width = '120px'
+        unMemberImg.style.width = '120px';
+        unMemberImg.classList.add('un-member')
         nationDiv.appendChild(unMemberImg);
-
 
         container.appendChild(nationDiv);
     }
+}
+
+
+
+function sortByPopM() {
+    container.innerHTML = "";
+    europeNations.sort((a, b) => a.population - b.population);
+    displayCountries(europeNations);
+  }
+
+  function sortByPopL() {
+    container.innerHTML = "";
+    europeNations.sort((a, b) => b.population - a.population);
+    displayCountries(europeNations);
+  }
+
+function sortByName(){
+    container.innerHTML = "";
+    europeNations.sort((a, b) => a.name.official.localeCompare(b.name.official));
+    displayCountries(europeNations);
 }
