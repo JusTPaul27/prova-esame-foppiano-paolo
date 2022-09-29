@@ -89,7 +89,7 @@ function displayCountries(nations) {
             if (nation.unMember === true) {
                 return 'https://upload.wikimedia.org/wikipedia/commons/thumb/b/b3/UN_flag.png/1024px-UN_flag.png'
             } else {
-                return './assets/immagine.png'
+                return './assets/Immagine.png'
             }
         }
         unMemberImg.src = unMember();
